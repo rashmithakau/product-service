@@ -9,11 +9,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductUpdateDTO {
+public class PriceUpdateDTO {
 
-    private Long productUpdateId;
+    private Long priceUpdateId;
     private Long productId;
-    private Date productUpdateDate;
-    private Double productUpdatePrice;
+    private Date priceUpdateDate;
+    private Double price;
 
 }
