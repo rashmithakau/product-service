@@ -12,18 +12,18 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductUpdate {
+public class PriceUpdate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_update_id")
-    private Long productUpdateId;
+    private Long priceUpdateId;
 
-    @Column(name = "product_update_date", columnDefinition = "DATETIME")
-    private Date productUpdateDate;
+    @Column(name = "update_date", columnDefinition = "DATETIME")
+    private Date priceUpdateDate;
 
-    @Column(name = "product_update_price")
-    private Double productUpdatePrice;
+    @Column(name = "price")
+    private Double priceUpdatePrice;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)

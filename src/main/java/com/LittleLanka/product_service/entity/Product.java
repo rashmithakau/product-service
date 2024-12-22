@@ -32,7 +32,7 @@ public class Product {
     private boolean productStatus;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "product_measuring_unit_type")
+    @Column(name = "measuring_type")
     private MeasuringUnitType productMeasuringUnitType = MeasuringUnitType.NUMBER;
 
     @OneToMany(mappedBy = "product")
