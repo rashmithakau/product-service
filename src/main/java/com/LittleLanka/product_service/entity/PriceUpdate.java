@@ -17,15 +17,15 @@ public class ProductUpdate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_update_id")
-    private Long productUpdateId;
+    private Long priceUpdateId;
 
     @Column(name = "product_id")
     private Long productId;
 
-    @Column(name = "product_update_date", columnDefinition = "DATETIME")
-    private Date productUpdateDate;
+    @Column(name = "update_date", columnDefinition = "DATETIME")
+    private Date priceUpdateDate;
 
-    @Column(name = "product_update_price")
-    private Double productUpdatePrice;
+    @Column(name = "price")
+    private Double priceUpdatePrice;
 
 }
