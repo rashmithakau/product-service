@@ -19,13 +19,14 @@ public class ProductUpdate {
     @Column(name = "product_update_id")
     private Long productUpdateId;
 
-    @Column(name = "product_id")
-    private Long productId;
-
     @Column(name = "product_update_date", columnDefinition = "DATETIME")
     private Date productUpdateDate;
 
     @Column(name = "product_update_price")
     private Double productUpdatePrice;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
 }

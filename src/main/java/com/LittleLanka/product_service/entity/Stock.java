@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "stock")
 @AllArgsConstructor
@@ -16,13 +18,18 @@ public class Stock {
     @Column(name = "stock_id")
     private Long stockId;
 
-    @Column(name = "product_id")
-    private Long productId;
-
     @Column(name = "outlet_id")
     private Long outletId;
 
     @Column(name = "stock_quantity")
     private int stockQuantity;
+
+    @ManyToMany
+    @JoinTable(
+            name = "stocked_products",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "stock_id")
+    )
+    private List<Product> products;
 
 }
