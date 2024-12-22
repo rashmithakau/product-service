@@ -36,7 +36,7 @@ public class Product {
     private MeasuringUnitType productMeasuringUnitType = MeasuringUnitType.NUMBER;
 
     @OneToMany(mappedBy = "product")
-    private List<ProductUpdate> productUpdates;
+    private List<PriceUpdate> productUpdates;
 
     @ManyToMany(mappedBy = "products")
     private List<Stock> stocks;
