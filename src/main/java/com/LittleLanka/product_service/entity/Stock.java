@@ -5,27 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Entity
-@Table(name = "product_update")
+@Table(name = "stock")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductUpdate {
-
+public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_update_id")
-    private Long productUpdateId;
+    @Column(name = "stock_id")
+    private Long stockId;
 
     @Column(name = "product_id")
     private Long productId;
 
-    @Column(name = "product_update_date", columnDefinition = "DATETIME")
-    private Date productUpdateDate;
+    @Column(name = "outlet_id")
+    private Long outletId;
 
-    @Column(name = "product_update_price")
-    private Double productUpdatePrice;
+    @Column(name = "stock_quantity")
+    private int stockQuantity;
 
 }
