@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "product")
 @AllArgsConstructor
@@ -32,5 +34,11 @@ public class Product {
     @Enumerated(EnumType.STRING)
     @Column(name = "measuring_type")
     private MeasuringUnitType productMeasuringUnitType = MeasuringUnitType.NUMBER;
+
+    @OneToMany(mappedBy = "product")
+    private List<PriceUpdate> productUpdates;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Stock> stocks;
 
 }
