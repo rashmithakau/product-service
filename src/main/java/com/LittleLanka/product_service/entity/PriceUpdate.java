@@ -16,7 +16,7 @@ public class PriceUpdate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_update_id")
+    @Column(name = "price_update_id")
     private Long priceUpdateId;
 
     @ManyToOne
