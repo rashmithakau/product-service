@@ -21,4 +21,11 @@ public class ProductController {
         return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
     }
 
+    @GetMapping("/get-price-by-date-and-productId/{date}/{id}")
+    public ResponseEntity<Double> getPriceByDateAndProductId(
+            @RequestParam(value = "date") String date,
+            @RequestParam(value = "id") Long id) {
+        Double price = productService.getPriceByDateAndProductId(date, id);
+        return new ResponseEntity<>(price, HttpStatus.OK);
+    }
 }
