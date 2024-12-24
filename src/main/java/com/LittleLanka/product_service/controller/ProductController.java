@@ -32,6 +32,4 @@ public class ProductController {
         Double price = productService.getPriceByDateAndProductId(date, id);
         return new ResponseEntity<>(price, HttpStatus.OK);
     }
-
-
 }

@@ -12,8 +12,8 @@ import java.util.List;
 @Repository
 @EnableJpaRepositories
 public interface PriceUpdateRepository extends JpaRepository<PriceUpdate, Long> {
-
     @Query(value = "select pu.price as price from price_update pu, product p where p.product_id = pu.product_id and pu.update_date = ?1 and p.product_id = ?2", nativeQuery = true)
     Double findPriceUpdateByPriceUpdateDateAndProductId(Date dateObj, Long id);
 
 }
+
