@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Entity
-@Table(name = "price_update")
+@Table(name = "product_update")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -19,14 +19,14 @@ public class PriceUpdate {
     @Column(name = "product_update_id")
     private Long priceUpdateId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
-
-    @Column(name = "update_date", columnDefinition = "DATE")
+    @Column(name = "update_date", columnDefinition = "DATETIME")
     private Date priceUpdateDate;
 
     @Column(name = "price")
-    private Double price;
+    private Double priceUpdatePrice;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
 }
