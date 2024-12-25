@@ -3,6 +3,7 @@ package com.LittleLanka.product_service.controller;
 import com.LittleLanka.product_service.dto.PriceUpdateDTO;
 import com.LittleLanka.product_service.dto.ProductDTO;
 import com.LittleLanka.product_service.dto.request.RequestSaveProductDTO;
+import com.LittleLanka.product_service.dto.response.ResponsePriceListDTO;
 import com.LittleLanka.product_service.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,4 +33,11 @@ public class ProductController {
         Double price = productService.getPriceByDateAndProductId(date, id);
         return new ResponseEntity<>(price, HttpStatus.OK);
     }
+
+    @GetMapping("/get-price-list-by-date/{date}")
+    public ResponseEntity<List<ResponsePriceListDTO>> getPriceListByDate(@PathVariable(value = "date") String date) {
+        List<ResponsePriceListDTO> priceListDTOS = productService.getPriceListByDate(date);
+        return new ResponseEntity<>(priceListDTOS, HttpStatus.OK);
+    }
+
 }
