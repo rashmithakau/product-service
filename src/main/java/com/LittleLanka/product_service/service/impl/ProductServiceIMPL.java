@@ -2,13 +2,17 @@ package com.LittleLanka.product_service.service.impl;
 
 import com.LittleLanka.product_service.dto.PriceUpdateDTO;
 import com.LittleLanka.product_service.dto.ProductDTO;
+import com.LittleLanka.product_service.dto.StockDTO;
 import com.LittleLanka.product_service.dto.queryInterfaces.PriceListInterface;
 import com.LittleLanka.product_service.dto.request.RequestSaveProductDTO;
+import com.LittleLanka.product_service.dto.request.RequestSaveStockDTO;
 import com.LittleLanka.product_service.dto.response.ResponsePriceListDTO;
 import com.LittleLanka.product_service.entity.PriceUpdate;
 import com.LittleLanka.product_service.entity.Product;
+import com.LittleLanka.product_service.entity.Stock;
 import com.LittleLanka.product_service.repository.PriceUpdateRepository;
 import com.LittleLanka.product_service.repository.ProductRepository;
+import com.LittleLanka.product_service.repository.StockRepository;
 import com.LittleLanka.product_service.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -19,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceIMPL implements ProductService {
@@ -28,6 +33,8 @@ public class ProductServiceIMPL implements ProductService {
     private PriceUpdateRepository priceUpdateRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private StockRepository stockRepository;
 
     private Date makeDate(String date){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -68,6 +75,18 @@ public class ProductServiceIMPL implements ProductService {
             responsePriceListDTOS.add(responsePriceListDTO);
         }
         return responsePriceListDTOS;
+    }
+
+    @Override
+    public StockDTO saveStock(RequestSaveStockDTO requestSaveStockDTO) {
+        Optional<Product> optionalProduct = productRepository.findById(requestSaveStockDTO.getProductId());
+        if(optionalProduct.isEmpty()){
+            throw new RuntimeException("Product not found" + requestSaveStockDTO.getProductId());
+        }
+        Stock stock = modelMapper.map(requestSaveStockDTO, Stock.class);
+        stock.setProduct(optionalProduct.get());
+        Stock savedStock = stockRepository.save(stock);
+        return modelMapper.map(savedStock, StockDTO.class);
     }
 
 }

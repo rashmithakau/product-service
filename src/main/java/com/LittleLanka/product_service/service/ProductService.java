@@ -2,7 +2,9 @@ package com.LittleLanka.product_service.service;
 
 import com.LittleLanka.product_service.dto.PriceUpdateDTO;
 import com.LittleLanka.product_service.dto.ProductDTO;
+import com.LittleLanka.product_service.dto.StockDTO;
 import com.LittleLanka.product_service.dto.request.RequestSaveProductDTO;
+import com.LittleLanka.product_service.dto.request.RequestSaveStockDTO;
 import com.LittleLanka.product_service.dto.response.ResponsePriceListDTO;
 
 import java.util.Date;
@@ -14,4 +16,6 @@ public interface ProductService {
     Double getPriceByDateAndProductId(String date, Long id);
 
     List<ResponsePriceListDTO> getPriceListByDate(String date);
+
+    StockDTO saveStock(RequestSaveStockDTO requestSaveStockDTO);
 }

@@ -2,7 +2,9 @@ package com.LittleLanka.product_service.controller;
 
 import com.LittleLanka.product_service.dto.PriceUpdateDTO;
 import com.LittleLanka.product_service.dto.ProductDTO;
+import com.LittleLanka.product_service.dto.StockDTO;
 import com.LittleLanka.product_service.dto.request.RequestSaveProductDTO;
+import com.LittleLanka.product_service.dto.request.RequestSaveStockDTO;
 import com.LittleLanka.product_service.dto.response.ResponsePriceListDTO;
 import com.LittleLanka.product_service.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,12 @@ public class ProductController {
     public ResponseEntity<List<ResponsePriceListDTO>> getPriceListByDate(@PathVariable(value = "date") String date) {
         List<ResponsePriceListDTO> priceListDTOS = productService.getPriceListByDate(date);
         return new ResponseEntity<>(priceListDTOS, HttpStatus.OK);
+    }
+
+    @PostMapping("/save-stock")
+    public ResponseEntity<StockDTO> saveStock(@RequestBody RequestSaveStockDTO requestSaveStockDTO) {
+        StockDTO stockDTO = productService.saveStock(requestSaveStockDTO);
+        return new ResponseEntity<>(stockDTO, HttpStatus.CREATED);
     }
 
 }

@@ -18,14 +18,13 @@ public class Stock {
     @Column(name = "stock_id")
     private Long stockId;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
     @Column(name = "outlet_id")
     private Long outletId;
 
     @Column(name = "stock_quantity")
     private int stockQuantity;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
-
 }
