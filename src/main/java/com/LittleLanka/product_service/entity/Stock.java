@@ -24,12 +24,8 @@ public class Stock {
     @Column(name = "stock_quantity")
     private int stockQuantity;
 
-    @ManyToMany
-    @JoinTable(
-            name = "stocked_products",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "stock_id")
-    )
-    private List<Product> products;
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
 }
