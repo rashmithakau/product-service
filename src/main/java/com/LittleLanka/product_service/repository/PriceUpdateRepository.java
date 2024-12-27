@@ -18,5 +18,6 @@ public interface PriceUpdateRepository extends JpaRepository<PriceUpdate, Long> 
 
     @Query(value = "SELECT p.product_id, p.product_name, pu.price, pu.update_date FROM product p JOIN price_update pu ON p.product_id = pu.product_id WHERE pu.update_date = (SELECT MAX(update_date) FROM price_update WHERE product_id = pu.product_id AND update_date <= ?1) ORDER BY p.product_id", nativeQuery = true)
     List<PriceListInterface> findProductIdAndPriceByDateEquals(Date date);
+
 }
 

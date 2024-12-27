@@ -22,7 +22,7 @@ public class Stock {
     private Long outletId;
 
     @Column(name = "stock_quantity")
-    private int stockQuantity;
+    private double stockQuantity;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)

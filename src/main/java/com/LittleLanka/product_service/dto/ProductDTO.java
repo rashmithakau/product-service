@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ProductDTO {
     private Long productId;
     private String productName;
-    private CatagoryType productCatagory;
+    private CatagoryType productCatagory;//SHORTIES, SWEET, ITEMS, CAKES, BREADS, SNACKS , OTHER
     private boolean productStatus;
-    private MeasuringUnitType productMeasuringUnitType = MeasuringUnitType.NUMBER;
+    private MeasuringUnitType productMeasuringUnitType = MeasuringUnitType.NUMBER;//NUMBER, KG, PACKET
 }
