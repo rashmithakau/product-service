@@ -2,13 +2,16 @@ package com.LittleLanka.product_service.service.impl;
 
 import com.LittleLanka.product_service.dto.PriceUpdateDTO;
 import com.LittleLanka.product_service.dto.ProductDTO;
+import com.LittleLanka.product_service.dto.StockDTO;
 import com.LittleLanka.product_service.dto.queryInterfaces.PriceListInterface;
 import com.LittleLanka.product_service.dto.request.RequestSaveProductDTO;
 import com.LittleLanka.product_service.dto.response.ResponsePriceListDTO;
 import com.LittleLanka.product_service.entity.PriceUpdate;
 import com.LittleLanka.product_service.entity.Product;
+import com.LittleLanka.product_service.entity.Stock;
 import com.LittleLanka.product_service.repository.PriceUpdateRepository;
 import com.LittleLanka.product_service.repository.ProductRepository;
+import com.LittleLanka.product_service.repository.StockRepository;
 import com.LittleLanka.product_service.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -28,6 +31,8 @@ public class ProductServiceIMPL implements ProductService {
     private PriceUpdateRepository priceUpdateRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private StockRepository stockRepository;
 
     private Date makeDate(String date){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -68,6 +73,16 @@ public class ProductServiceIMPL implements ProductService {
             responsePriceListDTOS.add(responsePriceListDTO);
         }
         return responsePriceListDTOS;
+    }
+
+    @Override
+    public StockDTO initializeStock(StockDTO stockDTO) {
+        if(productRepository.existsById(stockDTO.getProductId())){
+            Stock stock=modelMapper.map(stockDTO, Stock.class);
+            Stock stock1=stockRepository.save(stock);
+            return modelMapper.map(stock1, StockDTO.class);
+        }
+        return null;
     }
 
 }

@@ -2,6 +2,7 @@ package com.LittleLanka.product_service.controller;
 
 import com.LittleLanka.product_service.dto.PriceUpdateDTO;
 import com.LittleLanka.product_service.dto.ProductDTO;
+import com.LittleLanka.product_service.dto.StockDTO;
 import com.LittleLanka.product_service.dto.request.RequestSaveProductDTO;
 import com.LittleLanka.product_service.dto.response.ResponsePriceListDTO;
 import com.LittleLanka.product_service.service.ProductService;
@@ -26,6 +27,12 @@ public class ProductController {
         return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
     }
 
+    @PostMapping("/stock-initialize")
+    public ResponseEntity<StockDTO> initializeStock(@RequestBody StockDTO stockDTO) {
+        StockDTO stockDTO1=productService.initializeStock(stockDTO);
+        return new ResponseEntity<>(stockDTO1, HttpStatus.CREATED);
+    }
+
     @GetMapping("/get-price-by-date-and-productId/{date}/{id}")
     public ResponseEntity<Double> getPriceByDateAndProductId(
             @RequestParam(value = "date") String date,
@@ -39,5 +46,4 @@ public class ProductController {
         List<ResponsePriceListDTO> priceListDTOS = productService.getPriceListByDate(date);
         return new ResponseEntity<>(priceListDTOS, HttpStatus.OK);
     }
-
 }
