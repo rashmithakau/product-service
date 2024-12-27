@@ -1,14 +1,13 @@
-package com.LittleLanka.product_service.dto;
+package com.LittleLanka.product_service.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class StockDTO {
-    private Long stockId;
+public class RequestInitializeStockDto {
     private Long productId;
     private Long outletId;
     private double stockQuantity;
