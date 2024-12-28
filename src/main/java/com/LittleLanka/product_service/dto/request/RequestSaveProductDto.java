@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class RequestSaveProductDTO {
+public class RequestSaveProductDto {
     private String productName;
     private CatagoryType productCatagory;
     private MeasuringUnitType productMeasuringUnitType = MeasuringUnitType.NUMBER;
