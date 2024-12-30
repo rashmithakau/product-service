@@ -8,6 +8,7 @@ import com.LittleLanka.product_service.dto.request.RequestSaveProductDto;
 import com.LittleLanka.product_service.dto.request.RequestStockUpdateDto;
 import com.LittleLanka.product_service.dto.response.ResponsePriceListDTO;
 import com.LittleLanka.product_service.service.ProductService;
+import com.LittleLanka.product_service.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,30 +30,37 @@ public class ProductController {
     }
 
     @PostMapping("/stock-initialize")
-    public ResponseEntity<StockDTO> initializeStock(@RequestBody StockDTO stockDTO) {
+    public ResponseEntity<StandardResponse> initializeStock(@RequestBody StockDTO stockDTO) {
         StockDTO stockDTO1=productService.initializeStock(stockDTO);
-        return new ResponseEntity<>(stockDTO1, HttpStatus.CREATED);
+        return new ResponseEntity<>(new StandardResponse(HttpStatus.CREATED.value(), "Successfully initialized the stock",stockDTO1),
+                HttpStatus.CREATED);
     }
 
     @PutMapping("/price-update")
-    public ResponseEntity<PriceUpdateDTO> updatePrice(@RequestBody RequestPriceUpdateDto requestPriceUpdateDto) {
+    public ResponseEntity<StandardResponse> updatePrice(@RequestBody RequestPriceUpdateDto requestPriceUpdateDto) {
         PriceUpdateDTO priceUpdateDTO=productService.updatePrice(requestPriceUpdateDto);
-        return new ResponseEntity<>(priceUpdateDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(new StandardResponse(HttpStatus.CREATED.value(), "Successfully updated price",priceUpdateDTO),
+                HttpStatus.CREATED);
     }
 
     @PutMapping("stock-update-by-id-Qty")
-    public ResponseEntity<StockDTO> updateStockById(@RequestBody RequestStockUpdateDto requestStockUpdate) {
+    public ResponseEntity<StandardResponse> updateStockById(@RequestBody RequestStockUpdateDto requestStockUpdate) {
         StockDTO stockDTO=productService.updateStockByIdQty(requestStockUpdate);
-        return new ResponseEntity<>(stockDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(new StandardResponse(HttpStatus.CREATED.value(),"Successfully updated stock",stockDTO),
+                HttpStatus.CREATED);
     }
 
     @GetMapping("/get-price-by-date-and-productId/{date}/{id}")
-    public ResponseEntity<Double> getPriceByDateAndProductId(
-            @RequestParam(value = "date") String date,
-            @RequestParam(value = "id") Long id) {
+    public ResponseEntity<StandardResponse> getPriceByDateAndProductId(
+            @PathVariable("date") String date,
+            @PathVariable("id") Long id)
+    {
         Double price = productService.getPriceByDateAndProductId(date, id);
-        return new ResponseEntity<>(price, HttpStatus.OK);
+        return new ResponseEntity<>(
+                new StandardResponse(HttpStatus.OK.value(), "Successfully retrieved price", price),
+                HttpStatus.OK);
     }
+
 
     @GetMapping("/get-price-list-by-date/{date}")
     public ResponseEntity<List<ResponsePriceListDTO>> getPriceListByDate(@PathVariable(value = "date") String date) {
