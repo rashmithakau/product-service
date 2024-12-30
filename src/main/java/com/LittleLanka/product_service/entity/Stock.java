@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Entity
 @Table(name = "stock")
@@ -13,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class Stock {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stock_id")
@@ -22,7 +22,7 @@ public class Stock {
     private Long outletId;
 
     @Column(name = "stock_quantity")
-    private double stockQuantity;
+    private int stockQuantity;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)

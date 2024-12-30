@@ -1,17 +1,22 @@
 package com.LittleLanka.product_service.dto.request;
 
-import com.LittleLanka.product_service.entity.enums.CatagoryType;
+import com.LittleLanka.product_service.entity.enums.CategoryType;
 import com.LittleLanka.product_service.entity.enums.MeasuringUnitType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class RequestSaveProductDto {
+public class RequestSaveProductDTO {
+
     private String productName;
-    private CatagoryType productCatagory;
-    private MeasuringUnitType productMeasuringUnitType = MeasuringUnitType.NUMBER;
+    private CategoryType productCategory;
+    private MeasuringUnitType measuringType;
+    private Date updateDate;
+    private Double price;
 
 }

@@ -1,12 +1,9 @@
 package com.LittleLanka.product_service.controller;
 
-import com.LittleLanka.product_service.dto.PriceUpdateDTO;
-import com.LittleLanka.product_service.dto.ProductDTO;
-import com.LittleLanka.product_service.dto.StockDTO;
-import com.LittleLanka.product_service.dto.request.RequestPriceUpdateDto;
-import com.LittleLanka.product_service.dto.request.RequestSaveProductDto;
-import com.LittleLanka.product_service.dto.request.RequestStockUpdateDto;
-import com.LittleLanka.product_service.dto.response.ResponsePriceListDTO;
+import com.LittleLanka.product_service.dto.request.RequestSaveProductDTO;
+import com.LittleLanka.product_service.dto.request.RequestSaveStockDTO;
+import com.LittleLanka.product_service.dto.request.RequestUpdatePriceTO;
+import com.LittleLanka.product_service.dto.response.*;
 import com.LittleLanka.product_service.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,40 +20,46 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/save-product")
-    public ResponseEntity<ProductDTO> saveProduct(@RequestBody RequestSaveProductDto requestSaveProductDTO) {
-        ProductDTO productDTO = productService.saveProduct(requestSaveProductDTO);
-        return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
+    public ResponseEntity<ResponseSaveProductDTO> saveProduct(@RequestBody RequestSaveProductDTO requestSaveProductDTO){
+        ResponseSaveProductDTO responseSaveProductDTO = productService.saveProduct(requestSaveProductDTO);
+        return new ResponseEntity<>(responseSaveProductDTO, HttpStatus.CREATED);
     }
 
-    @PostMapping("/stock-initialize")
-    public ResponseEntity<StockDTO> initializeStock(@RequestBody StockDTO stockDTO) {
-        StockDTO stockDTO1=productService.initializeStock(stockDTO);
-        return new ResponseEntity<>(stockDTO1, HttpStatus.CREATED);
+    @PostMapping("/save-stock")
+    public ResponseEntity<ResponseSaveStockDTO> saveStock(@RequestBody RequestSaveStockDTO requestSaveStockDTO){
+        ResponseSaveStockDTO responseSaveStockDTO = productService.saveStock(requestSaveStockDTO);
+        return new ResponseEntity<>(responseSaveStockDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/price-update")
-    public ResponseEntity<PriceUpdateDTO> updatePrice(@RequestBody RequestPriceUpdateDto requestPriceUpdateDto) {
-        PriceUpdateDTO priceUpdateDTO=productService.updatePrice(requestPriceUpdateDto);
-        return new ResponseEntity<>(priceUpdateDTO, HttpStatus.CREATED);
+    @PostMapping("/update-price")
+    public ResponseEntity<ResponseUpdatePriceDTO> updatePrice(@RequestBody RequestUpdatePriceTO requestUpdatePriceTO){
+        ResponseUpdatePriceDTO responseUpdatePriceDTO = productService.updatePrice(requestUpdatePriceTO);
+        return new ResponseEntity<>(responseUpdatePriceDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("stock-update-by-id-Qty")
-    public ResponseEntity<StockDTO> updateStockById(@RequestBody RequestStockUpdateDto requestStockUpdate) {
-        StockDTO stockDTO=productService.updateStockByIdQty(requestStockUpdate);
-        return new ResponseEntity<>(stockDTO, HttpStatus.CREATED);
+    @PutMapping("/update-stockQty-by-outletId-and-productId/{outletId}/{productId}/{qty}")
+    public ResponseEntity<ResponseUpdateStockDTO> updateStockByOutletIdAndProductId(
+            @RequestParam(value = "outletId") Long outletId,
+            @RequestParam(value = "productId") Long productId,
+            @RequestParam(value = "qty") int qty
+    ){
+        ResponseUpdateStockDTO responseUpdateStockDTO = productService.updateStockByOutletIdAndProductId(outletId, productId, qty);
+        return new ResponseEntity<>(responseUpdateStockDTO, HttpStatus.CREATED);
     }
 
-    @GetMapping("/get-price-by-date-and-productId/{date}/{id}")
+    @GetMapping("/get-price-by-date-and-productId/{date}/{productId}")
     public ResponseEntity<Double> getPriceByDateAndProductId(
             @RequestParam(value = "date") String date,
-            @RequestParam(value = "id") Long id) {
-        Double price = productService.getPriceByDateAndProductId(date, id);
+            @RequestParam(value = "productId") Long productId) {
+        Double price = productService.getPriceByDateAndProductId(date, productId);
         return new ResponseEntity<>(price, HttpStatus.OK);
     }
+
 
     @GetMapping("/get-price-list-by-date/{date}")
     public ResponseEntity<List<ResponsePriceListDTO>> getPriceListByDate(@PathVariable(value = "date") String date) {
         List<ResponsePriceListDTO> priceListDTOS = productService.getPriceListByDate(date);
         return new ResponseEntity<>(priceListDTOS, HttpStatus.OK);
     }
+
 }

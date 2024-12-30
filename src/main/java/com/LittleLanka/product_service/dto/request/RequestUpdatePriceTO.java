@@ -9,8 +9,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class RequestPriceUpdateDto {
-    private Long productId;
-    private Date priceUpdateDate;
+public class RequestUpdatePriceTO {
+    private Date updateDate;
     private Double price;
+    private Long productId;
 }

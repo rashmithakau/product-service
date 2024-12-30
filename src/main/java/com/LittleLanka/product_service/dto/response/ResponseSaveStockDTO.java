@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ResponsePriceListDTO {
+public class ResponseSaveStockDTO {
+    private Long stockId;
+    private Long outletId;
+    private int stockQuantity;
     private Long productId;
-    private Double price;
+    private String productName;
 }

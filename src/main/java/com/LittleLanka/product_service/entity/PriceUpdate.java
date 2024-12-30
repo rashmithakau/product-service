@@ -13,20 +13,19 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class PriceUpdate {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "price_update_id")
     private Long priceUpdateId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
-
     @Column(name = "update_date", columnDefinition = "DATE")
-    private Date priceUpdateDate;
+    private Date updateDate;
 
     @Column(name = "price")
     private Double price;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
 }

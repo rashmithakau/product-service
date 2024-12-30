@@ -1,6 +1,6 @@
 package com.LittleLanka.product_service.entity;
 
-import com.LittleLanka.product_service.entity.enums.CatagoryType;
+import com.LittleLanka.product_service.entity.enums.CategoryType;
 import com.LittleLanka.product_service.entity.enums.MeasuringUnitType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,24 +21,24 @@ public class Product {
     @Column(name = "product_id")
     private Long productId;
 
-    @Column(name = "product_name", length = 100)
+    @Column(name = "product_name")
     private String productName;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "product_catagory")
-    private CatagoryType productCatagory;
+    @Column(name = "product_category")
+    private CategoryType productCategory;
 
-    @Column(name = "product_status", columnDefinition = "TINYINT default 0") // 1=active, 0=inactive
+    @Column(name = "product_status", columnDefinition = "TINYINT default 0")
     private boolean productStatus;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "measuring_type")
-    private MeasuringUnitType productMeasuringUnitType = MeasuringUnitType.NUMBER;
-
-    @OneToMany(mappedBy = "product")
-    private List<PriceUpdate> productUpdates;
+    private MeasuringUnitType measuringType = MeasuringUnitType.NUMBER;
 
     @OneToMany(mappedBy = "product")
     private List<Stock> stocks;
+
+    @OneToMany(mappedBy = "product")
+    private List<PriceUpdate> priceUpdates;
 
 }

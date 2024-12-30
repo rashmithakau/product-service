@@ -12,8 +12,7 @@ import java.util.Date;
 public class PriceUpdateDTO {
 
     private Long priceUpdateId;
-    private Long productId;
-    private Date priceUpdateDate;
+    private Date updateDate;
     private Double price;
 
 }

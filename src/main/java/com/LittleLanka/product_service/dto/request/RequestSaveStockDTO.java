@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestStockUpdateDto {
-    private Long stockId;
-    private double stockQuantity;
+@Data
+public class RequestSaveStockDTO {
+    private Long outletId;
+    private int stockQuantity;
+    private Long productId;
 }

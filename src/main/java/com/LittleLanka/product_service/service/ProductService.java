@@ -1,26 +1,22 @@
 package com.LittleLanka.product_service.service;
 
-import com.LittleLanka.product_service.dto.PriceUpdateDTO;
-import com.LittleLanka.product_service.dto.ProductDTO;
-import com.LittleLanka.product_service.dto.StockDTO;
-import com.LittleLanka.product_service.dto.request.RequestInitializeStockDto;
-import com.LittleLanka.product_service.dto.request.RequestPriceUpdateDto;
-import com.LittleLanka.product_service.dto.request.RequestSaveProductDto;
-import com.LittleLanka.product_service.dto.request.RequestStockUpdateDto;
-import com.LittleLanka.product_service.dto.response.ResponsePriceListDTO;
+import com.LittleLanka.product_service.dto.request.RequestSaveProductDTO;
+import com.LittleLanka.product_service.dto.request.RequestSaveStockDTO;
+import com.LittleLanka.product_service.dto.request.RequestUpdatePriceTO;
+import com.LittleLanka.product_service.dto.response.*;
 
 import java.util.List;
 
 public interface ProductService {
-    ProductDTO saveProduct(RequestSaveProductDto requestSaveProductDTO);
+    ResponseSaveProductDTO saveProduct(RequestSaveProductDTO requestSaveProductDTO);
 
-    Double getPriceByDateAndProductId(String date, Long id);
+    ResponseSaveStockDTO saveStock(RequestSaveStockDTO requestSaveStockDTO);
+
+    ResponseUpdatePriceDTO updatePrice(RequestUpdatePriceTO requestUpdatePriceTO);
+
+    ResponseUpdateStockDTO updateStockByOutletIdAndProductId(Long outletId, Long productId, int qty);
+
+    Double getPriceByDateAndProductId(String date, Long productId);
 
     List<ResponsePriceListDTO> getPriceListByDate(String date);
-
-    StockDTO initializeStock(StockDTO stockDTO);
-
-    PriceUpdateDTO updatePrice(RequestPriceUpdateDto requestPriceUpdateDto);
-
-    StockDTO updateStockByIdQty(RequestStockUpdateDto requestStockUpdate);
 }

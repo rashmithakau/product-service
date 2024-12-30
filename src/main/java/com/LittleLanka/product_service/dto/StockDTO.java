@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class StockDTO {
+
     private Long stockId;
-    private Long productId;
     private Long outletId;
-    private double stockQuantity;
+    private int stockQuantity;
+
 }
