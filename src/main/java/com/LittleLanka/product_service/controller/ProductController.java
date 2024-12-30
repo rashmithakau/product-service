@@ -66,7 +66,7 @@ public class ProductController {
     @GetMapping("/get-price-list-by-date/{date}")
     public ResponseEntity<StandardResponse> getPriceListByDate(@PathVariable(value = "date") String date) {
         List<ResponsePriceListDTO> priceListDTOS = productService.getPriceListByDate(date);
-        return new ResponseEntity<>(new StandardResponse(HttpStatus.CREATED.value(),"Successfully loaded the price list", priceListDTOS),
-                HttpStatus.CREATED);
+        return new ResponseEntity<>(new StandardResponse(HttpStatus.OK.value(),"Successfully loaded the price list", priceListDTOS),
+                HttpStatus.OK);
     }
 }
