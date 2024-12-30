@@ -24,9 +24,10 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/save-product")
-    public ResponseEntity<ProductDTO> saveProduct(@RequestBody RequestSaveProductDto requestSaveProductDTO) {
+    public ResponseEntity<StandardResponse> saveProduct(@RequestBody RequestSaveProductDto requestSaveProductDTO) {
         ProductDTO productDTO = productService.saveProduct(requestSaveProductDTO);
-        return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(new StandardResponse(HttpStatus.CREATED.value(), "Successfully saved the product",productDTO),
+                HttpStatus.CREATED);
     }
 
     @PostMapping("/stock-initialize")
@@ -63,8 +64,9 @@ public class ProductController {
 
 
     @GetMapping("/get-price-list-by-date/{date}")
-    public ResponseEntity<List<ResponsePriceListDTO>> getPriceListByDate(@PathVariable(value = "date") String date) {
+    public ResponseEntity<StandardResponse> getPriceListByDate(@PathVariable(value = "date") String date) {
         List<ResponsePriceListDTO> priceListDTOS = productService.getPriceListByDate(date);
-        return new ResponseEntity<>(priceListDTOS, HttpStatus.OK);
+        return new ResponseEntity<>(new StandardResponse(HttpStatus.CREATED.value(),"Successfully loaded the price list", priceListDTOS),
+                HttpStatus.CREATED);
     }
 }
