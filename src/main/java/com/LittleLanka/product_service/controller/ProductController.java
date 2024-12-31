@@ -3,6 +3,7 @@ package com.LittleLanka.product_service.controller;
 import com.LittleLanka.product_service.dto.PriceUpdateDTO;
 import com.LittleLanka.product_service.dto.ProductDTO;
 import com.LittleLanka.product_service.dto.StockDTO;
+import com.LittleLanka.product_service.dto.request.RequestDateAndPriceListDTO;
 import com.LittleLanka.product_service.dto.request.RequestPriceUpdateDto;
 import com.LittleLanka.product_service.dto.request.RequestSaveProductDto;
 import com.LittleLanka.product_service.dto.request.RequestStockUpdateDto;
@@ -24,9 +25,10 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/save-product")
-    public ResponseEntity<ProductDTO> saveProduct(@RequestBody RequestSaveProductDto requestSaveProductDTO) {
+    public ResponseEntity<StandardResponse> saveProduct(@RequestBody RequestSaveProductDto requestSaveProductDTO) {
         ProductDTO productDTO = productService.saveProduct(requestSaveProductDTO);
-        return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(new StandardResponse(HttpStatus.CREATED.value(), "Successfully saved the product",productDTO),
+                HttpStatus.CREATED);
     }
 
     @PostMapping("/stock-initialize")
@@ -61,10 +63,21 @@ public class ProductController {
                 HttpStatus.OK);
     }
 
-
     @GetMapping("/get-price-list-by-date/{date}")
-    public ResponseEntity<List<ResponsePriceListDTO>> getPriceListByDate(@PathVariable(value = "date") String date) {
+    public ResponseEntity<StandardResponse> getPriceListByDate(@PathVariable(value = "date") String date) {
         List<ResponsePriceListDTO> priceListDTOS = productService.getPriceListByDate(date);
-        return new ResponseEntity<>(priceListDTOS, HttpStatus.OK);
+        return new ResponseEntity<>(new StandardResponse(HttpStatus.OK.value(), "Successfully got the price list",priceListDTOS),
+                HttpStatus.OK);
     }
+
+    @PostMapping("/get-price-list-by-date-and-productId-list")
+    public ResponseEntity<StandardResponse> getPriceListByDateAndProductIdList(
+            @RequestBody RequestDateAndPriceListDTO requestDateAndPriceListDTO) {
+        List<ResponsePriceListDTO> priceListDTOS = productService.getPriceListByDateAndProductIdList(requestDateAndPriceListDTO);
+        return new ResponseEntity<>(new StandardResponse(HttpStatus.OK.value(), "Successfully got the price list", priceListDTOS), HttpStatus.OK);
+    }
+
+
+
+
 }
