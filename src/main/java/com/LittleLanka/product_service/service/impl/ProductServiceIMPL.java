@@ -4,10 +4,7 @@ import com.LittleLanka.product_service.dto.PriceUpdateDTO;
 import com.LittleLanka.product_service.dto.ProductDTO;
 import com.LittleLanka.product_service.dto.StockDTO;
 import com.LittleLanka.product_service.dto.queryInterfaces.PriceListInterface;
-import com.LittleLanka.product_service.dto.request.RequestInitializeStockDto;
-import com.LittleLanka.product_service.dto.request.RequestPriceUpdateDto;
-import com.LittleLanka.product_service.dto.request.RequestSaveProductDto;
-import com.LittleLanka.product_service.dto.request.RequestStockUpdateDto;
+import com.LittleLanka.product_service.dto.request.*;
 import com.LittleLanka.product_service.dto.response.ResponsePriceListDTO;
 import com.LittleLanka.product_service.entity.PriceUpdate;
 import com.LittleLanka.product_service.entity.Product;
@@ -111,6 +108,21 @@ public class ProductServiceIMPL implements ProductService {
         stock.setStockQuantity(updatedQty);
         Stock stock1=stockRepository.save(stock);
         return modelMapper.map(stock1, StockDTO.class);
+    }
+
+    @Override
+    public List<ResponsePriceListDTO> getPriceListByDateAndProductIdList(RequestDateAndPriceListDTO requestDateAndPriceListDTO) {
+        String date = requestDateAndPriceListDTO.getDate();
+        List<ResponsePriceListDTO> priceListByDate = getPriceListByDate(date); // Fetch all prices for the date
+        // Filter the prices based on the product IDs provided in the request
+        List<Long> productIds = requestDateAndPriceListDTO.getProductIds();
+        List<ResponsePriceListDTO> filteredPriceList = new ArrayList<>();
+        for (ResponsePriceListDTO priceListDTO : priceListByDate) {
+            if (productIds.contains(priceListDTO.getProductId())) {
+                filteredPriceList.add(priceListDTO);
+            }
+        }
+        return filteredPriceList;
     }
 
 }
