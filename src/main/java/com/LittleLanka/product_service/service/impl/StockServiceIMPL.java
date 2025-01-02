@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class StockServiceImpl implements StockService {
+public class StockServiceIMPL implements StockService {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
