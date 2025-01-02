@@ -3,10 +3,7 @@ package com.LittleLanka.product_service.service;
 import com.LittleLanka.product_service.dto.PriceUpdateDTO;
 import com.LittleLanka.product_service.dto.ProductDTO;
 import com.LittleLanka.product_service.dto.StockDTO;
-import com.LittleLanka.product_service.dto.request.RequestInitializeStockDto;
-import com.LittleLanka.product_service.dto.request.RequestPriceUpdateDto;
-import com.LittleLanka.product_service.dto.request.RequestSaveProductDto;
-import com.LittleLanka.product_service.dto.request.RequestStockUpdateDto;
+import com.LittleLanka.product_service.dto.request.*;
 import com.LittleLanka.product_service.dto.response.ResponsePriceListDTO;
 
 import java.util.List;
