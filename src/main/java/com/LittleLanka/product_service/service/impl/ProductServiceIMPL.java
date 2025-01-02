@@ -30,8 +30,7 @@ public class ProductServiceIMPL implements ProductService {
     private PriceUpdateRepository priceUpdateRepository;
     @Autowired
     private ModelMapper modelMapper;
-    @Autowired
-    private StockRepository stockRepository;
+
 
     private Date makeDate(String date){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -80,19 +79,7 @@ public class ProductServiceIMPL implements ProductService {
         return responsePriceListDTOS;
     }
 
-    @Override
-    public StockDTO initializeStock(StockDTO stockDTO) {
-        if(productRepository.existsById(stockDTO.getProductId())){
-            Boolean isProductAlreadyExists=stockRepository.existsByOutletIdAndProduct(stockDTO.getOutletId(),
-                    productRepository.getReferenceById(stockDTO.getProductId()));
-            if(!isProductAlreadyExists){
-                Stock stock=modelMapper.map(stockDTO, Stock.class);
-                Stock stock1=stockRepository.save(stock);
-                return modelMapper.map(stock1, StockDTO.class);
-            }
-        }
-        return null;
-    }
+
 
     @Override
     public PriceUpdateDTO updatePrice(RequestPriceUpdateDto requestPriceUpdateDto) {
@@ -101,14 +88,7 @@ public class ProductServiceIMPL implements ProductService {
         return modelMapper.map(priceUpdateOut, PriceUpdateDTO.class);
     }
 
-    @Override
-    public StockDTO updateStockByIdQty(RequestStockUpdateDto requestStockUpdate) {
-        Stock stock=stockRepository.getReferenceById(requestStockUpdate.getStockId());
-        double updatedQty=stock.getStockQuantity()-requestStockUpdate.getStockQuantity();
-        stock.setStockQuantity(updatedQty);
-        Stock stock1=stockRepository.save(stock);
-        return modelMapper.map(stock1, StockDTO.class);
-    }
+
 
     @Override
     public List<ResponsePriceListDTO> getPriceListByDateAndProductIdList(RequestDateAndPriceListDTO requestDateAndPriceListDTO) {

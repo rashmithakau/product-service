@@ -31,12 +31,7 @@ public class ProductController {
                 HttpStatus.CREATED);
     }
 
-    @PostMapping("/stock-initialize")
-    public ResponseEntity<StandardResponse> initializeStock(@RequestBody StockDTO stockDTO) {
-        StockDTO stockDTO1=productService.initializeStock(stockDTO);
-        return new ResponseEntity<>(new StandardResponse(HttpStatus.CREATED.value(), "Successfully initialized the stock",stockDTO1),
-                HttpStatus.CREATED);
-    }
+
 
     @PutMapping("/price-update")
     public ResponseEntity<StandardResponse> updatePrice(@RequestBody RequestPriceUpdateDto requestPriceUpdateDto) {
@@ -45,12 +40,7 @@ public class ProductController {
                 HttpStatus.CREATED);
     }
 
-    @PutMapping("stock-update-by-id-Qty")
-    public ResponseEntity<StandardResponse> updateStockById(@RequestBody RequestStockUpdateDto requestStockUpdate) {
-        StockDTO stockDTO=productService.updateStockByIdQty(requestStockUpdate);
-        return new ResponseEntity<>(new StandardResponse(HttpStatus.CREATED.value(),"Successfully updated stock",stockDTO),
-                HttpStatus.CREATED);
-    }
+
 
     @GetMapping("/get-price-by-date-and-productId/{date}/{id}")
     public ResponseEntity<StandardResponse> getPriceByDateAndProductId(
