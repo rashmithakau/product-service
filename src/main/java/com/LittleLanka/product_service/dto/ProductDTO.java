@@ -15,4 +15,6 @@ public class ProductDTO {
     private CatagoryType productCatagory;//SHORTIES, SWEET, ITEMS, CAKES, BREADS, SNACKS , OTHER
     private boolean productStatus;
     private MeasuringUnitType productMeasuringUnitType = MeasuringUnitType.NUMBER;//NUMBER, KG, PACKET
+    private String imageUrl;
+
 }
