@@ -17,8 +17,8 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping("/save-product")
-    public ResponseEntity<StandardResponse> saveProduct(@RequestBody RequestSaveProductDto requestSaveProductDTO) {
+    @PostMapping(value = "/save-product", consumes = { "multipart/form-data" })
+    public ResponseEntity<StandardResponse> saveProduct(@ModelAttribute RequestSaveProductDto requestSaveProductDTO) {
         ProductDTO productDTO = productService.saveProduct(requestSaveProductDTO);
         return new ResponseEntity<>(new StandardResponse(HttpStatus.CREATED.value(), "Successfully saved the product",productDTO),
                 HttpStatus.CREATED);

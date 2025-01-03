@@ -35,6 +35,9 @@ public class Product {
     @Column(name = "measuring_type")
     private MeasuringUnitType productMeasuringUnitType = MeasuringUnitType.NUMBER;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @OneToMany(mappedBy = "product")
     private List<PriceUpdate> productUpdates;
 
