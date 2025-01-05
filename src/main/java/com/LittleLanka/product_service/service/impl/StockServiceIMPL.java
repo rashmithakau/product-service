@@ -1,7 +1,10 @@
 package com.LittleLanka.product_service.service.impl;
 
 import com.LittleLanka.product_service.dto.StockDTO;
+import com.LittleLanka.product_service.dto.request.RequestProductListDTO;
 import com.LittleLanka.product_service.dto.request.RequestStockUpdateDto;
+import com.LittleLanka.product_service.dto.request.RequestUpdateStockDTO;
+import com.LittleLanka.product_service.dto.response.ResponseUpdateStockDTO;
 import com.LittleLanka.product_service.entity.Stock;
 import com.LittleLanka.product_service.repository.ProductRepository;
 import com.LittleLanka.product_service.repository.StockRepository;
@@ -10,6 +13,9 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -43,4 +49,33 @@ public class StockServiceIMPL implements StockService {
         Stock stock1=stockRepository.save(stock);
         return modelMapper.map(stock1, StockDTO.class);
     }
+
+    public ResponseUpdateStockDTO updateStockByOutletIdAndProductList(RequestUpdateStockDTO requestUpdateStockDTO) {
+        Long outletId=requestUpdateStockDTO.getOutletId();
+        List<RequestProductListDTO> productList = requestUpdateStockDTO.getProductList();
+        boolean status = requestUpdateStockDTO.isStatus();
+        List<RequestProductListDTO> updatedProductList=new ArrayList<>();
+
+        for (RequestProductListDTO product : productList) {
+            Stock stock = stockRepository.findByOutletIdAndProduct(outletId, productRepository.getReferenceById(product.getProductId()));
+            double updateStockQuantity;
+            if(status){
+                updateStockQuantity=stock.getStockQuantity()+product.getStockQuantity();
+            }else{
+                if(stock.getStockQuantity()<product.getStockQuantity()){
+                    throw new RuntimeException("Insufficient stock");
+                }
+                updateStockQuantity=stock.getStockQuantity()-product.getStockQuantity();
+            }
+            stock.setStockQuantity(updateStockQuantity);
+            stockRepository.save(stock);
+            updatedProductList.add(new RequestProductListDTO(product.getProductId(), updateStockQuantity));
+        }
+
+        ResponseUpdateStockDTO responseUpdateStockDTO = new ResponseUpdateStockDTO();
+        responseUpdateStockDTO.setOutletId(outletId);
+        responseUpdateStockDTO.setProductList(updatedProductList);
+        return responseUpdateStockDTO;
+    }
+
 }

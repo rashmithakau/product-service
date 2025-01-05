@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 @EnableJpaRepositories
 public interface StockRepository extends JpaRepository<Stock, Long> {
     Boolean existsByOutletIdAndProduct(Long outletId, Product product);
+
+    Stock findByOutletIdAndProduct(Long outletId, Product product);
 }
